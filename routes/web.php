@@ -47,7 +47,6 @@ Route::get('/maintenance',[MaintenanceController::class,'maintenance']);
 Route::post('/courses', [MaintenanceController::class,'courses'])->name('courses');
 
 Route::get('/uploadpage', [FileController::class, 'show'])->name('uploadpage');
-Route::get('/dashboard', [FileController::class,'dashboard']);
 Route::post('/uploadfile', [FileController::class,'uploadfile']);
 
 

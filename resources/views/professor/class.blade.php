@@ -18,6 +18,7 @@
             <ul>
                 <li>
                     <a href="#">
+                        <img style="width: 55px; margin-left: 6px; padding-top: 30px;" src="/images/puplogo.png">
                         <span class="toptitle">OJTIMS</span>
                     </a>
                 </li>
@@ -87,6 +88,8 @@
                 <div class="toggle">
                     <ion-icon name="menu-outline"></ion-icon>
                 </div>
+
+                <span class="subtitle">On-the-Job Training Information Management System </span>
 
             </div>
 

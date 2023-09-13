@@ -1,5 +1,5 @@
 /* =========== Google Fonts ============ */
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;800;900&display=swap');
 
 /* =============== Globals ============== */
 * {
@@ -34,7 +34,7 @@ body {
   height: 100%;
   background: var(--maroon);
   border-left: 10px solid var(--maroon);
-  transition: 0.5s;
+  transition: 0.10s;
   overflow: hidden;
 }
 .navigation.active {
@@ -105,13 +105,13 @@ body {
   position: relative;
   display: block;
   padding: 2 20px;
-  padding-left: 75px;
+  margin-left: 10px;
+  padding-top: 55px;
   height: 80px;
-  line-height: 120px;
+  line-height: 15px;
   width: 244px;
   flex-shrink: 0;
   color: #FFA800;
-  text-align: center;
   text-shadow: 0px 4px 2px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
   font-family: Poppins;
   font-size: 48px;
@@ -154,7 +154,7 @@ body {
   width: calc(100% - 300px);
   left: 300px;
   min-height: 100vh;
-  background-image: url('/images/bckg.jpg');
+  background-image: url('/images/PUPTbg1.jpg');
   background-size: cover;
   transition: 0.5s;
 }
@@ -165,12 +165,30 @@ body {
 
 .topbar {
   width: 100%;
-  height: 60px;
+  height: 100px;
   background: var(--maroon);
   display: flex;
-  justify-content: space-between;
+  justify-content: left;
   align-items: center;
   padding: 0 10px;
+}
+
+.subtitle{
+  position: relative;
+  display: flex;
+  padding-left: 20px;
+  height: 20px;
+  line-height: 30px;
+  width: 100px;
+  flex-shrink: 0;
+  color: var(--white);
+  text-align: left;
+  text-shadow: 0px 4px 2px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: Poppins;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 500;
+  white-space: nowrap;
 }
 
 .toggle {
@@ -590,7 +608,7 @@ filter: alpha(opacity=20);
 opacity: .2;
 }
 button.close {
--webkit-appearance: none;
+/*-webkit-appearance: none;*/
 padding: 0;
 cursor: pointer;
 background: transparent;

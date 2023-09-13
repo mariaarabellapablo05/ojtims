@@ -17,6 +17,7 @@
             <ul>
                 <li>
                     <a href="#">
+                        <img style="width: 55px; margin-left: 6px; padding-top: 30px;" src="/images/puplogo.png">
                         <span class="toptitle">OJTIMS</span>
                     </a>
                 </li>
@@ -66,7 +67,6 @@
                     </a>
                 </li>
 
-
                 <li>
                     <a href="{{ url('/maintenance') }}">
                         <span class="icon">
@@ -75,8 +75,6 @@
                         <span class="title">Maintenance</span>
                     </a>
                 </li>
-
-
 
                 <li>
                     <a href="{{ url('/login') }}">
@@ -92,18 +90,22 @@
         <!-- ========================= Main ==================== -->
         <div class="main">
             
-
             <div class="topbar">
 
                 <div class="toggle">
                     <ion-icon name="menu-outline"></ion-icon>
                 </div>
 
+                <span class="subtitle">On-the-Job Training Information Management System </span>
+                
+                
             </div>
 
             <div class="dash">
                 <h1 style="color:white;">Dashboard</h1>
+                
             </div>
+            <h2 style="color:white;">Welcome, {{ $data->full_name }} !</h1>
 
             <!-- ======================= Cards ================== -->
             <div class="cardBox">

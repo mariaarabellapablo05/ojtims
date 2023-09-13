@@ -72,11 +72,7 @@ class FileController extends Controller
         return view('ojtCoordinator.view',compact('data'));
     }
 
-    public function dashboard()
-    {
-	    return view('ojtCoordinator.dashboard');
-
-    }
+    
 
     public function remove($id)
     {

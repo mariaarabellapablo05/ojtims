@@ -8,7 +8,8 @@
     <title>OJTIMS</title>
     <!-- ======= Styles ====== -->
     <link rel="stylesheet" href="assets/css/style.css">
-    
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
 </head>
 
 <body>
@@ -18,6 +19,7 @@
             <ul>
                 <li>
                     <a href="#">
+                        <img style="width: 55px; margin-left: 6px; padding-top: 30px;" src="/images/puplogo.png">
                         <span class="toptitle">OJTIMS</span>
                     </a>
                 </li>
@@ -99,6 +101,8 @@
                     <ion-icon name="menu-outline"></ion-icon>
                 </div>
 
+                <span class="subtitle">On-the-Job Training Information Management System </span>
+                
             </div>
 
             <div class="dash">
@@ -189,28 +193,36 @@
 
 
                     
-                    <table>
+                    
+                    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+        $('#profTable').DataTable();
+    });
+    </script>
+                    
+                    <table id="profTable" class="display">
                         <thead>
                             <tr>
-                                <td>Name</td>
-                                <td>Email</td>
+                                <th data-orderable="true">Name</th>
+                                <th data-orderable="true">Email</th>
                             </tr>
                         </thead>
-
                         <tbody>
-                        @foreach($data as $data)
-                        <tr>
-                            <td>{{ $data->full_name }}</td>
-                            <td>{{ $data->email }}</td>   
-
-                        </tr>
-                    </tbody>
-
+                            @foreach($data as $data)
+                            <tr>
+                                <td>{{ $data->full_name }}</td>
+                                <td>{{ $data->email }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
 
 
         </div>
 
-        @endforeach
     </div>
 
 
