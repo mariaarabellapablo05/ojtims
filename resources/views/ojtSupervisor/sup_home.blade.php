@@ -21,6 +21,13 @@
                         <img style="width: 55px; margin-left: 6px; padding-top: 30px;" src="/images/puplogo.png">
                         <span class="toptitle">OJTIMS</span>
                     </a>
+
+                    <a href="#">
+                        <span class="icon" style="margin-top: 60px;">
+                            <ion-icon name="person-circle-outline"></ion-icon>
+                        </span>
+                        <span class="name"> {{ $data->full_name }} </span>
+                    </a>
                 </li>
 
                 <li>

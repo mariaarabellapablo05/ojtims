@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Hash;
+use Mail;
+use Session;
 use App\Models\User;
-use App\Models\Professor;
 use App\Models\Courses;
-use Illuminate\Support\Str;
+use App\Models\MOAUpload;
 Use App\Mail\TemporaryPasswordNotification;
 Use App\Mail\ForgotPassNotif;
-use Hash;
-use Session;
-use Mail;
+Use App\Mail\SendFile;
+use App\Models\Professor;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Stroage;
+
 
 class ForgotPassController extends Controller
 {
@@ -68,6 +72,10 @@ class ForgotPassController extends Controller
         return back()->with('fail','Oh no! Something went wrong.');
     }
     }
-    
-    
+
+
+
+ 
 }
+
+

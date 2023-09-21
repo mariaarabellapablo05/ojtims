@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -9,6 +11,7 @@
     <link rel="stylesheet" href="{{ asset('/assets/css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 </head>
 <body>
     
@@ -21,10 +24,17 @@
                         <img style="width: 55px; margin-left: 6px; padding-top: 30px;" src="/images/puplogo.png">
                         <span class="toptitle">OJTIMS</span>
                     </a>
+
+                    <a href="#">
+                        <span class="icon" style="margin-top: 60px;">
+                            <ion-icon name="person-circle-outline"></ion-icon>
+                        </span>
+                        <span class="name"> {{ $user->full_name }} </span>
+                    </a>
                 </li>
 
-                <li>
-                    <a href="home">
+                <li class="active">
+                    <a href="{{ url('/student/home') }}">
                         <span class="icon">
                             <ion-icon name="home-outline"></ion-icon>
                         </span>
@@ -42,7 +52,7 @@
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="{{ url('/student/ojtinfo') }}">
                         <span class="icon">
                             <ion-icon name="albums-outline"></ion-icon>
                         </span>
@@ -60,11 +70,11 @@
                 </li>
 
                 <li>
-                    <a href="uploadpage">
+                    <a href="{{ url('/student/files') }}">
                         <span class="icon">
                             <ion-icon name="document-outline"></ion-icon>
                         </span>
-                        <span class="title">Upload Templates</span>
+                        <span class="title">Downloadable Files</span>
                     </a>
                 </li>
 
@@ -101,19 +111,18 @@
             <div class="cardBox">
 
                 <div class="card">
-                    <a href="uploadpage" style="color:maroon;text-decoration:none;">
                     <div>
-                        <div class="numbers">2</div>
-                        <div class="cardName">Downloadable Templates</div>
+                        <a href="{{ url('/student/files') }}" style="color:maroon;text-decoration:none;">
+                        <div class="numbers">{{ $fileCount }}</div>
+                        <div class="cardName" style="font-size: 18px;">Downloadable Templates</div>
+                        
                     </div>
 
                     <div class="iconBx">
                         <ion-icon name="cloud-upload-outline"></ion-icon>
-                    </a>
                     </div>
-
-
-
+                    </a>
+                </div>
 
             </div>
             <br>
@@ -124,31 +133,39 @@
                         <h2>Announcements</h2>
                     </div>
 
-                    <table>
-                        <thead>
-                            <tr>
-                                <td>Subject</td>
-                                <td>Comments</td>
-                                <td>Date</td>
+                    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+                    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+                <script src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+                <script>
+                    $(document).ready(function() {
+                    $('#ATable').DataTable();
+                });
+                </script>
+                                
+                                <table id="ATable" class="display">
+                                    <thead>
+                                        <tr>
+                                            <th data-orderable="true">Subject</th>
+                                            <th data-orderable="true">Comments</th>
+                                            <th data-orderable="true">Date</th>
+                                            <th data-orderable="true">Announced By</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($data as $data)
+                                        <tr>
+                                            <td>{{ $data->title }}</td>
+                                            <td>{{ $data->content }}</td>
+                                            <td>{{ $data->created_at }}</td>
+                                            <td>{{ $data->announcer }}</td>
+                                            
+                                        </tr>
+                                        
+                                    </tbody>
+                                    @endforeach
+                                </table>
 
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td>2023-08-18 AM 8:38</td>
-
-                            </tr>
-
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td>2023-08-18 AM 8:38</td>
-                          </tr>
-                        </tbody>
-                    </table>
+  
                 </div>
 
             </div> 

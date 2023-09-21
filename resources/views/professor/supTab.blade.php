@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -9,6 +11,10 @@
     <link rel="stylesheet" href="{{ asset('/assets/css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
 </head>
 <body>
     
@@ -20,6 +26,13 @@
                     <a href="#">
                         <img style="width: 55px; margin-left: 6px; padding-top: 30px;" src="/images/puplogo.png">
                         <span class="toptitle">OJTIMS</span>
+                    </a>
+
+                    <a href="#">
+                        <span class="icon" style="margin-top: 60px;">
+                            <ion-icon name="person-circle-outline"></ion-icon>
+                        </span>
+                        <span class="name"> {{ $user->full_name }} </span>
                     </a>
                 </li>
 
@@ -50,7 +63,7 @@
                     </a>
                 </li>
 
-                <li>
+                <li class="active">
                     <a href="{{ url('/supTab') }}">
                         <span class="icon">
                             <ion-icon name="person-circle-outline"></ion-icon>
@@ -60,7 +73,7 @@
                 </li>
 
                 <li>
-                    <a href="uploadpage">
+                    <a href="{{ url('/professor/upload') }}">
                         <span class="icon">
                             <ion-icon name="document-outline"></ion-icon>
                         </span>
@@ -104,17 +117,14 @@
         
 
             <!-- ================ Order Details List ================= -->
-            <div class="details">
-                <div class="recentOrders">
-                    <div class="cardHeader">
-                        <h2>Add Supervisors</h2>
-                       
-                    </div>
 
                     <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: 100px;margin-left:1000px;background-color:#FFA800;border-radius: 12px;padding: 5px 10px;border-color : gold;color:white;">
-   +
-  </button>
+                    <div class="buttons" style="margin-left: 1150px;">
+                        <div class="AddProfBtn">
+                            <button class="updateBtn" type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal" style="font-size: 18px;">Add New Supervisor</button>
+                            <i class="uil uil-plus" style="font-size: 25px;color:white;"></i>
+                        </div>
+                    </div>
   
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -165,21 +175,60 @@
 
                     
 
-                </div>
-                
-
-            </div>
 
 
 
+            <div class="details">
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>Supervisors</h2>
+                    </div>
+                    
+
+
+                    
+                    
+                    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+        $('#profTable').DataTable();
+    });
+    </script>
+                    
+                    <table id="profTable" class="display">
+                        <thead>
+                            <tr>
+                                <th data-orderable="true">Name</th>
+                                <th data-orderable="true">Email</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($data as $data)
+                            <tr>
+                                <td>{{ $data->full_name }}</td>
+                                <td>{{ $data->email }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
+
+        </div>
+
+    </div>
+
+
+        
+
+    <!-- =========== Scripts =========  -->
+    <script src="assets/js/main.js"></script>
+
+    <!-- ====== ionicons ======= -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>
+
 </html>
-
-
-<!-- =========== Scripts =========  -->
-<script src="assets/js/main.js"></script>
-
-<!-- ====== ionicons ======= -->
-<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>

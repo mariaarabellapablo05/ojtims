@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -20,16 +22,28 @@
                     <a href="#">
                         <img style="width: 55px; margin-left: 6px; padding-top: 30px;" src="/images/puplogo.png">
                         <span class="toptitle">OJTIMS</span>
+
+
+                    </a>
+
+
+
+                    <a href="#">
+                        <span class="icon" style="margin-top: 60px;">
+                            <ion-icon name="person-circle-outline"></ion-icon>
+                        </span>
+                        <span class="name"> {{ $data->full_name }} </span>
                     </a>
                 </li>
 
-                <li>
+                <li class="active">
                     <a href="{{ url('/professor/home') }}">
                         <span class="icon">
                             <ion-icon name="home-outline"></ion-icon>
                         </span>
                         <span class="title" >Dashboard</span>
                     </a>
+
                 </li>
 
                 <li>
@@ -60,7 +74,7 @@
                 </li>
 
                 <li>
-                    <a href="uploadpage">
+                    <a href="{{ url('/professor/upload') }}">
                         <span class="icon">
                             <ion-icon name="document-outline"></ion-icon>
                         </span>
@@ -101,7 +115,7 @@
             <div class="cardBox">
                 <div class="card">
                     <div>
-                        <div class="numbers">20</div>
+                        <div class="numbers">{{ $roleCount }}</div>
                         <div class="cardName">Students</div>
                     </div>
 
@@ -110,25 +124,14 @@
                     </div>
                 </div>
 
-                <div class="card">
-                    <div>
-                        <div class="numbers">12</div>
-                        <div class="cardName">Advisers</div>
-                    </div>
-
-                    <div class="iconBx">
-                        <ion-icon name="person-circle-outline"></ion-icon>
-                    </div>
-                    
-                </div>
 
 
                 
 
                 <div class="card">
-                    <a href="uploadpage" style="color:maroon;text-decoration:none;">
+                    <a href="{{ url('/professor/upload') }}" style="color:maroon;text-decoration:none;">
                     <div>
-                        <div class="numbers">2</div>
+                        <div class="numbers">{{ $fileCount }}</div>
                         <div class="cardName">Uploaded Templates</div>
                     </div>
 

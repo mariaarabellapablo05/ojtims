@@ -2,12 +2,20 @@
 <html lang="en">
 
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OJTIMS</title>
     <!-- ======= Styles ====== -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="{{ asset('/assets/css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    
 </head>
 
 <body>
@@ -20,10 +28,18 @@
                         <img style="width: 55px; margin-left: 6px; padding-top: 30px;" src="/images/puplogo.png">
                         <span class="toptitle">OJTIMS</span>
                     </a>
+                    <a href="#">
+                        <span class="icon" style="margin-top: 60px;">
+                            <ion-icon name="person-circle-outline"></ion-icon>
+                        </span>
+                        <span class="name"> {{ $user->full_name }} </span>
+                    </a>
                 </li>
 
+                
+
                 <li>
-                    <a href="dashboard">
+                    <a href="{{ url('/dashboard') }}">
                         <span class="icon">
                             <ion-icon name="home-outline"></ion-icon>
                         </span>
@@ -32,7 +48,7 @@
                 </li>
 
                 <li>
-                    <a href="accountinfo">
+                    <a href="{{ url('/accountinfo') }}">
                         <span class="icon">
                             <ion-icon name="person-outline"></ion-icon>
                         </span>
@@ -41,7 +57,7 @@
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="{{ url('/studentLists') }}">
                         <span class="icon">
                             <ion-icon name="people-outline"></ion-icon>
                         </span>
@@ -50,16 +66,16 @@
                 </li>
 
                 <li>
-                    <a href="professorTab">
+                    <a href="{{ url('/professorTab') }}">
                         <span class="icon">
-                            <ion-icon name="person-circle-outline"></ion-icon>
+                            <ion-icon name="people-circle-outline"></ion-icon>
                         </span>
                         <span class="title">Professors</span>
                     </a>
                 </li>
 
-                <li>
-                    <a href="uploadpage">
+                <li class="active">
+                    <a href="{{ url('/uploadpage') }}">
                         <span class="icon">
                             <ion-icon name="document-outline"></ion-icon>
                         </span>
@@ -74,6 +90,16 @@
                             <ion-icon name="code-working-outline"></ion-icon>
                         </span>
                         <span class="title">Maintenance</span>
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="{{ url('/MOA') }}">
+                        <span class="icon">
+                            <ion-icon name="folder-outline"></ion-icon>
+                        </span>
+                        <span class="title">MOA</span>
                     </a>
                 </li>
 
@@ -115,92 +141,88 @@
         
 
         
-
             <!-- ================ Order Details List ================= -->
-            <div class="details">
-                <div class="recentOrders">
-                    <div class="cardHeader">
-                        <h2>Upload Templates</h2>
-                       
-                    </div>
+ 
 
-                    <table>
-                        <thead>
-                            <tr>
-                                <td>Name</td>
-                                <td>Choose File</td>
-                                <td>Submit</td>
-                                
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <input type="text" name="name">
-                                </td>
-                                <td>
-                                    <input type="file" name="file">
-
-                                </td>
-                                <td>
-                                    <input type="submit" style="background-color:#FFA800;border-radius: 12px;padding: 5px 10px;border-color : gold;color:white;">
-                                </td>
-                            </tr>
-
-                                                       
-                        </tbody>
-                    </table>
-
-                </form>
-
-
-                </div>
+                    <!-- Button trigger modal -->
+                    <div class="buttons" style="margin-left: 1150px;">
+                    <div class="AddProfBtn">
+<button type="button" class="updateBtn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="font-size: 18px;">
+    
+    Upload New Template
+  </button>
+  <i class="uil uil-plus" style="font-size: 25px;"></i>
+</div>
+</div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
                 
+        <div class="modal-body">
+            <form action="{{url('/uploadfile')}}" method="post" enctype="multipart/form-data">
 
-            </div>
+                @csrf
+                <table>
+
+                    <div class="form-group" style="font-size: 22px;">
+                        <label class="form-label" for="name">Name:</label>
+                        <input class="form-input" type="text" name="name">
+                    </div>
+
+                    <div class="form-group" style="font-size: 22px;">
+                        <label class="form-label" for="file">Choose File:</label>
+                        <input class="form-input" type="file" name="file">
+                    </div>
+
+                </table>
+            </form>
+
+
+        </div>
+
+
+        <div class="buttons" style="margin-left: 100px;">
+                
+            <button class="modalCloseBtn" type="button" data-bs-dismiss="modal" style="font-size: 18px; font-weight: 400; background-color:#FFA800;"> Close </button>
+            
+            <button class="submitBtn" type="submit" data-bs-dismiss="modal" style="font-size: 18px; font-weight: 400;"> Submit </button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</form>
+
+                    
+
+
 
 
 
             <div class="details">
                 <div class="recentOrders">
                     <div class="cardHeader">
-                        <h2>Uploaded Templates</h2><form action="{{url('search')}}" method="GET" role="search">
-                            <div class="input-group">
-                                <input type="search" name="search" placeholder="Search..." class= "form-group">
-                                <button class="btn bg-white" type="submit">
-                                    <ion-icon name="search-outline"></ion-icon>
-                                </button>
-                            </div>
-                        </form>
+                        <h2>Uploaded Templates</h2>
                     </div>
                     
 
 
-                    
-                    <table>
+                    <table id="fileTable" class="display">
                         <thead>
                             <tr>
-                                <td>File Name
-
-                                    <a href="{{ route('uploadpage', ['column' => 'name', 'order' => ($order === 'asc' && $sortedBy === 'name') ? 'desc' : 'asc']) }}" style="color:black">
-                                        @if ($order === 'asc' && $sortedBy === 'name')
-                                            <ion-icon name="caret-up-outline"></ion-icon>
-                                        @elseif ($order === 'desc' && $sortedBy === 'name')
-                                            <ion-icon name="caret-down-outline"></ion-icon>
-                                        @endif
-                                    </a>
-                                </td>
-                                <td></td>
-                                <td>Date and Time Submitted</td>
+                                <th data-orderable="true">File Name</th>
+                                <th></th>
+                                <th data-orderable="true">Date and Time Submitted</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
                             </tr>
                         </thead>
-
-
-                        @foreach($data as $data)
-
-
                         <tbody>
+                            @foreach($data as $data)
                             <tr>
                                 <td>{{$data->name}}</td>
                                 <td>{{$data->file}}</td>
@@ -210,46 +232,60 @@
                                         <a href="{{url('/view',$data->id)}}" style="color:white;font-family: 'Poppins', sans-serif;text-decoration:none;">View</a>
                                     </button>
                                 </td>
-                                
                                 <td>
                                     <button style="background-color: green;border-radius: 12px;padding: 5px 10px;border-color : green">
                                         <a href="{{url('/download',$data->file)}}" style="color:white;font-family: 'Poppins', sans-serif;text-decoration:none;">Download</a>
                                     </button>
-
                                 </td>
-
                                 <td>
                                     <form action="{{url('/remove',$data->id)}}" method="post" enctype="multipart/form-data">
                                         @csrf
-                                            <button type="submit" style="background-color: red;border-radius: 12px;padding: 5px 10px;border-color : red;color:white;font-family: 'Poppins', sans-serif;text-decoration:none;">
-                                                Remove
-                                            </button>
+                                        <button type="submit" style="background-color: red;border-radius: 12px;padding: 5px 10px;border-color : red;color:white;font-family: 'Poppins', sans-serif;text-decoration:none;">
+                                            Remove
+                                        </button>
                                     </form>
-
                                 </td>
                             </tr>
-
-
-
-        </div>
-
-        @endforeach
-    </div>
-
-
+                            @endforeach
+                        </tbody>
+                    </table>
+                
+                    <!-- Include jQuery and DataTables scripts -->
+                    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+                    <script src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+                
+                    <!-- Enable sorting for the fileTable -->
+                    <script>
+                        $(document).ready(function() {
+                            $('#fileTable').DataTable();
+                        });
+                    </script>
                 
 
-    <!-- =========== Scripts =========  -->
-    <script src="assets/js/main.js"></script>
 
-    <!-- ====== ionicons ======= -->
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 
 </html>
 
 
+<!-- =========== Scripts =========  -->
+<script src="assets/js/main.js"></script>
+
+<!-- ====== ionicons ======= -->
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+                 
+<!-- Include jQuery and DataTables scripts -->
+                        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+                        <script src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+                    
+                        <!-- Enable sorting for the fileTable -->
+                        <script>
+                            $(document).ready(function() {
+                                $('#fileTable').DataTable();
+                            });
+                        </script>
 
 
 

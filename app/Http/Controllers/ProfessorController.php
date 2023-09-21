@@ -11,7 +11,9 @@ Use App\Mail\TemporaryPasswordNotification;
 use App\Models\Courses;
 use App\Models\Professor;
 use Illuminate\Support\Str;
+use App\Models\UploadedFile;
 use Illuminate\Http\Request;
+use App\Models\OJTInformation;
 use Illuminate\Support\Facades\Auth;
 
 class ProfessorController extends Controller
@@ -91,26 +93,42 @@ else{
 public function show_list($courseName)
 {
     $data = array();
-    
+
     if (Session::has('loginId')) {
         $data = User::where('id', Session::get('loginId'))->first();
     }
-    
-    if($data->status == 0){
-    // Assuming you have logic to retrieve the professor and students data
-    $course = Classes::where('course', $courseName)->first();
-    
-    
-    
-    $students = User::where('course', $course->course)->where('status', 1)->get();;
 
+    if ($data->status == 0) {
+        // Assuming you have logic to retrieve the professor and students data
+        $course = Classes::where('course', $courseName)->first();
 
-    // Pass the $course and $students variables to the view
-    return view('professor.classList', compact('course', 'students', 'data'));
+        if (!$course) {
+            // Handle the case where the course doesn't exist
+            return redirect()->back()->with('error', 'Course not found.');
+        }
+
+        $students = User::where('course', $course->course)->where('status', 1)->get();
+
+        $studentData = [];
+
+        foreach ($students as $student) {
+            $ojt = OJTInformation::where('studentNum', $student->studentNum)->first();
+            
+            // Add the student and associated OJT information to the data array
+            $studentData[] = [
+                'student' => $student,
+                'ojt' => $ojt,
+            ];
+        }
+
+        // Pass the $course and $students variables to the view
+        return view('professor.classList', compact('course', 'studentData', 'data'));
+    }
 }
+
     
 
-}
+
 
 public function approve(Request $request,$email)
     {
@@ -149,7 +167,25 @@ public function approve(Request $request,$email)
     
         return back()->with('success', 'You have updated the information successfully!');
 
+        
     }
+
+    public function uploadP()
+    {   
+               // Get the currently logged-in user's name
+               $user=array();
+               if(Session::has('loginId')){
+       
+                   $user=User::where('id','=', Session::get('loginId'))->first();
+                           }
+       
+        $userName=$user->full_name;
+    // Fetch data from the database where the uploader_name matches the currently logged-in user's name
+    $data = UploadedFile::where('uploader_name', $userName)->get();
+
+    return view('professor.uploadt', compact('data','user'));
+
+}
 
 
     

@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Models\User;
-use App\Models\Professor;
-use App\Models\Courses;
-use Illuminate\Support\Str;
-Use App\Mail\TemporaryPasswordNotification;
 use Hash;
-use Session;
 use Mail;
+use Session;
+use App\Models\User;
+use App\Models\Courses;
+use App\Models\Professor;
+Use App\Mail\TemporaryPasswordNotification;
+use Illuminate\Support\Str;
+use App\Models\UploadedFile;
+use Illuminate\Http\Request;
+use App\Models\Announcements;
+use App\Models\OJTInformation;
+use Illuminate\Support\Facades\Auth;
+
 
 class AuthController extends Controller
 {
@@ -37,6 +41,7 @@ class AuthController extends Controller
                 'studentNum'=>'required',
                 'password'=>'required|min:8|max:12'
         ]);
+        $student = new OJTInformation();
         $user =new User();
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
@@ -46,7 +51,10 @@ class AuthController extends Controller
         $user->year_and_section= $request->year_and_section;
         $user->adviser_name = $request->adviser_name;
         $user->password = Hash::make($request->password);
+        $user->full_name = $user->first_name . ' ' . $user->last_name;
+        $student->studentNum =  $user->studentNum;
         $res = $user->save();
+        $student->save();
         
         if($res){
             return back()->with('success','You have registered successfully!');
@@ -98,13 +106,19 @@ class AuthController extends Controller
 
     public function dashboard(){
 
+        $roleCount = User::where('role', 0)->count();
+        $roleCountP = User::where('role', 2)->count();
+        
         $data=array();
             if(Session::has('loginId')){
 
                 $data=User::where('id','=', Session::get('loginId'))->first();
                         }
+
+                        $userName=$data->full_name;
+                        $fileCount = UploadedFile::where('uploader_name', $userName)->count();
     
-        return view('ojtCoordinator.dashboard', compact('data'));
+        return view('ojtCoordinator.dashboard', compact('data','roleCount','roleCountP','fileCount'));
     
     }
 
@@ -117,9 +131,14 @@ class AuthController extends Controller
 
 
     public function professorTab(){
+        $user=array();
+        if(Session::has('loginId')){
+    
+            $user=User::where('id','=', Session::get('loginId'))->first();
+                    }
         $data=Professor::all();
 
-    return view('ojtCoordinator.professorTab', compact('data'));
+    return view('ojtCoordinator.professorTab', compact('data','user'));
     }
 
 
@@ -155,19 +174,39 @@ class AuthController extends Controller
     }
 
     public function student_home(){
+        $data=array();
+        if(Session::has('loginId')){
 
-        return view('students.student_home');
+            $user=User::where('id','=', Session::get('loginId'))->first();
+                    }
+        $data = Announcements::where(function ($query) use ($user) {
+            $query->where('announcer', 'Gina Dela Cruz')
+                  ->orWhere('announcer', $user->adviser_name);
+                })
+                ->get();
+                $fileCount = UploadedFile::where(function ($query) use ($user) {
+                    $query->where('uploader_name', 'Gina Dela Cruz')
+                          ->orWhere('uploader_name', $user->adviser_name);
+                        })
+                        ->count();
+     
+
+        return view('students.student_home', compact('data','user','fileCount'));
         }
 
     public function professor_home(){
+        $roleCount = User::where('role', 0)->count();
 
         $data=array();
             if(Session::has('loginId')){
 
                 $data=User::where('id','=', Session::get('loginId'))->first();
                         }
+                        $userName=$data->full_name;
+                        $fileCount = UploadedFile::where('uploader_name', $userName)->count();
     
-        return view('professor.home', compact('data'));
+        return view('professor.home', compact('data','roleCount','fileCount'));
+
             
             }
 
@@ -175,14 +214,24 @@ class AuthController extends Controller
 
     public function sup_home(){
 
-        return view('ojtSupervisor.sup_home');
+        $data=array();
+            if(Session::has('loginId')){
+
+                $data=User::where('id','=', Session::get('loginId'))->first();
+                        }
+        return view('ojtSupervisor.sup_home', compact('data'));
    }
         
 
    public function supTab(){
-    $data=User::all();
+    $user=array();
+        if(Session::has('loginId')){
+    
+            $user=User::where('id','=', Session::get('loginId'))->first();
+                    }
+    $data=User::where('role', 3)->get();
 
-return view('professor.supTab', compact('data'));
+return view('professor.supTab', compact('data','user'));
 }
 
    public function supCreate(Request $request){

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ asset('/assets/css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 </head>
 <body>
     
@@ -20,6 +21,13 @@
                     <a href="#">
                         <img style="width: 55px; margin-left: 6px; padding-top: 30px;" src="/images/puplogo.png">
                         <span class="toptitle">OJTIMS</span>
+                    </a>
+
+                    <a href="#">
+                        <span class="icon" style="margin-top: 60px;">
+                            <ion-icon name="person-circle-outline"></ion-icon>
+                        </span>
+                        <span class="name"> {{ $data->full_name }} </span>
                     </a>
                 </li>
 
@@ -60,7 +68,7 @@
                 </li>
 
                 <li>
-                    <a href="uploadpage">
+                    <a href="{{ url('/professor/upload') }}">
                         <span class="icon">
                             <ion-icon name="document-outline"></ion-icon>
                         </span>
@@ -106,12 +114,12 @@
                         <h2>Student Requests</h2>
                     </div>
 
-                    <table>
+                    <table id="fileTable" class="display">
                         <thead>
                             <tr>
-                                <td>Student Name</td>
-                                <td>Course</td>
-                                <td>Year and Section</td>
+                                <td data-orderable="true">Student Name</td>
+                                <td data-orderable="true">Course</td>
+                                <td data-orderable="true">Year and Section</td>
                                 <td>Approve</td>
                                 <td>Deny</td>
                             </tr>
@@ -161,3 +169,14 @@
 <script src="{{url('/assets/js/main.js')}}"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+<!-- Include jQuery and DataTables scripts -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+<!-- Enable sorting for the fileTable -->
+<script>
+    $(document).ready(function() {
+        $('#fileTable').DataTable();
+    });
+</script>

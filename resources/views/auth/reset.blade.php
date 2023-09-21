@@ -56,7 +56,7 @@
 
                     <div class="form-group">
                         <label for="password">Confirm Password</label>
-                        <input type="confirm_password" class="form-control" placeholder="Enter Confirmed Password"
+                        <input type="password" class="form-control" placeholder="Enter Confirmed Password"
                         name="confirm_password" >
                     </div>
                     

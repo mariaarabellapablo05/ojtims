@@ -18,9 +18,15 @@ class MaintenanceController extends Controller
 
     public function maintenance(){
 
+        $user=array();
+        if(Session::has('loginId')){
+    
+            $user=User::where('id','=', Session::get('loginId'))->first();
+                    }
+
         $data=Courses::all();
 
-    return view('ojtCoordinator.maintenance', compact('data'));
+    return view('ojtCoordinator.maintenance', compact('data','user'));
         
     }
     public function courses(Request $request){

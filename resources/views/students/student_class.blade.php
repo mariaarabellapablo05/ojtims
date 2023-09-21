@@ -21,10 +21,17 @@
                         <img style="width: 55px; margin-left: 6px; padding-top: 30px;" src="/images/puplogo.png">
                         <span class="toptitle">OJTIMS</span>
                     </a>
+
+                    <a href="#">
+                        <span class="icon" style="margin-top: 60px;">
+                            <ion-icon name="person-circle-outline"></ion-icon>
+                        </span>
+                        <span class="name"> {{ $data->full_name }} </span>
+                    </a>
                 </li>
 
                 <li>
-                    <a href="home">
+                    <a href="{{ url('/student/home') }}">
                         <span class="icon">
                             <ion-icon name="home-outline"></ion-icon>
                         </span>
@@ -42,7 +49,7 @@
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="{{ url('/student/ojtinfo') }}">
                         <span class="icon">
                             <ion-icon name="albums-outline"></ion-icon>
                         </span>
@@ -60,11 +67,11 @@
                 </li>
 
                 <li>
-                    <a href="uploadpage">
+                    <a href="{{ url('/student/files') }}">
                         <span class="icon">
                             <ion-icon name="document-outline"></ion-icon>
                         </span>
-                        <span class="title">Upload Templates</span>
+                        <span class="title">Downloadable Files</span>
                     </a>
                 </li>
 

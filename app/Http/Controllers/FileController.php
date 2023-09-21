@@ -3,28 +3,54 @@
 namespace App\Http\Controllers;
 
 
-use Illuminate\Support\Facades\Stroage;
-use Illuminate\Http\Request;
+use Hash;
+use Mail;
+use Session;
+use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Classes;
+use App\Models\Company;
+Use App\Mail\TemporaryPasswordNotification;
+use App\Models\Courses;
+use App\Models\MOAUpload;
+use App\Models\Professor;
+use App\Mail\SendFileNotif;
+use App\Mail\SendTempNotif;
+use App\Models\CoursePerSY;
+use Illuminate\Support\Str;
 use App\Models\UploadedFile;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Stroage;
 
 class FileController extends Controller
 {
-    public function uploadpage(Request $request)
+    public function uploadpage()
     {
-        // Fetch data from the database with the default sorting
-        $data = UploadedFile::orderBy('name', 'asc')->paginate(10);
+                   // Get the currently logged-in user's name
+                   $user=array();
+                   if(Session::has('loginId')){
+           
+                       $user=User::where('id','=', Session::get('loginId'))->first();
+                               }
+           
+            $userName=$user->full_name;
+        // Fetch data from the database where the uploader_name matches the currently logged-in user's name
+        $data = UploadedFile::where('uploader_name', $userName)->get();
 
-        return view('ojtCoordinator.upload', [
-            'data' => $data,
-            'order' => 'asc', // Default sorting order
-            'sortedBy' => 'name', // Default sorted column
-        ]);
     }
 
 
     public function uploadfile(Request $request)
     {
         
+        $user=array();
+        if(Session::has('loginId')){
+
+            $user=User::where('id','=', Session::get('loginId'))->first();
+                    }
+
+
         $data=new UploadedFile();
 	    $file=$request->file;
         $filename=time().'.'.$file->getClientOriginalExtension();
@@ -32,6 +58,7 @@ class FileController extends Controller
         $data->file=$filename;
 
         $data->name=$request->name;
+        $data->uploader_name=$user->full_name;
 
         $data->save();
 
@@ -42,18 +69,18 @@ class FileController extends Controller
 
     public function show(Request $request)
     {
-        // Retrieve query parameters for sorting
-        $column = $request->input('column', 'name'); // Default column to sort by
-        $order = $request->input('order', 'asc'); // Default sorting order
 
-        // Fetch data from the database and apply sorting
-        $data = UploadedFile::orderBy($column, $order)->paginate(10);
-
-        return view('ojtCoordinator.upload', [
-            'data' => $data,
-            'order' => $order,
-            'sortedBy' => $column,
-        ]);
+                   // Get the currently logged-in user's name
+                   $user=array();
+                   if(Session::has('loginId')){
+           
+                       $user=User::where('id','=', Session::get('loginId'))->first();
+                               }
+           
+            $userName=$user->full_name;
+        // Fetch data from the database where the uploader_name matches the currently logged-in user's name
+        $data = UploadedFile::where('uploader_name', $userName)->get();
+        return view('ojtCoordinator.upload', compact('data', 'user'));
 
     }
 
@@ -77,8 +104,14 @@ class FileController extends Controller
     public function remove($id)
     {
 
-        $data=UploadedFile::find($id);
+        $data = UploadedFile::find($id);
+
+        if (!$data) {
+            return redirect()->back()->with('error', 'File not found.');
+        }
+    
         $data->delete();
+    
         return redirect()->back();
     }
     
@@ -94,4 +127,56 @@ class FileController extends Controller
             
         }
     }
+
+
+    public function sendFiless(Request $request){
+       
+        $request->validate([
+            'email' => 'required|email',
+            'file_id', // Make sure the file exists in the 'moa_uploads' table
+        ]);
+    
+        $fileId = $request->input('file_id');
+        $file = UploadedFile::find($fileId);
+    
+        if (!$file) {
+            return back()->with('error', 'File not found.');
+        }
+    
+        $attachmentPath = public_path('assets/' . $file->file_name); // Move this line after defining $file
+    
+        try {
+            Mail::to($request->email)->send(new SendTempNotif($attachmentPath, $file->file));
+    
+            return back()->with('success', 'Email sent with file attachment.');
+        } catch (\Exception $e) {
+            \Log::error('Email sending error: ' . $e->getMessage());
+            return back()->with('error', 'Email sending failed.');
+        }
+    
+    }
+
+    public function downloadFile($file)
+{
+    $fileRecord = UploadedFile::where('file', $file)->first();
+
+    if ($fileRecord) {
+        // Check if the file is still valid
+        if ($fileRecord->valid_until && now()->gt($fileRecord->valid_until)) {
+            // File has expired, return a response indicating that
+            return response()->json(['message' => 'File has expired'], 403);
+        }
+
+        // File is valid, allow download
+        $filePath = public_path('assets/' . $file);
+        $headers = [
+            'Content-Type' => 'application/pdf', // Adjust the content type as needed
+        ];
+
+        return response()->download(public_path('assets/' . $file));
+    }
+
+    // File not found, return a response indicating that
+    return response()->json(['message' => 'File not found'], 404);
+}
 }

@@ -18,14 +18,37 @@
 }
 
 body {
-  min-height: 100vh;
+  /* min-height: 120vh; */
   overflow-x: hidden;
+  background-image: url('/images/PUPTbg1.jpg')
 }
 
 .container {
   position: relative;
   width: 100%;
 }
+
+.containerAcc {
+  min-height: 120vh;
+  position: relative;
+  width: 100%;
+}
+
+/* .background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/images/PUPTbg1.jpg');
+  background-size: cover;
+}
+
+.background-container {
+  z-index: -1; 
+} */
+
+
 
 /* =============== Navigation ================ */
 .navigation {
@@ -120,6 +143,30 @@ body {
   white-space: nowrap;
 }
 
+.navigation ul li a .name {
+  position: relative;
+  display: block;
+  /* padding-bottom: 100px;
+  padding-left: 30px; */
+  height: 20px;
+  line-height: 60px;
+  width: 122px;
+  flex-shrink: 0;
+  color: var(--white);
+  text-align: center;
+  text-shadow: 0px 4px 2px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: Poppins;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  white-space: nowrap;
+  align-items: flex-start;
+  margin-top: 60px;
+  margin-left: 20px;
+  margin-bottom: 70px;
+}
+
+
 /* --------- curve outside ---------- */
 .navigation ul li:hover a::before,
 .navigation ul li.hovered a::before {
@@ -154,7 +201,7 @@ body {
   width: calc(100% - 300px);
   left: 300px;
   min-height: 100vh;
-  background-image: url('/images/PUPTbg1.jpg');
+  /* background-image: url('/images/PUPTbg1.jpg'); */
   background-size: cover;
   transition: 0.5s;
 }
@@ -206,7 +253,7 @@ body {
 .main .dash {
   position: relative;
   display: flex;
-  padding: 30px;
+  padding: 20px;
 	align-items: center;
 	justify-content: space-between;
 	grid-gap: 20px;
@@ -272,14 +319,14 @@ body {
 /* ================== Order Details List ============== */
 .details {
   position: relative;
-  width: 1800px;
-  height: 250px;
+  width: 2200px;
+  height: 150px;
+  color:var(--maroon);
  
   padding: 20px;
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-gap: 20px;
-  margin-top: 10px; 
 }
 
 .details .recentOrders {
@@ -292,6 +339,49 @@ body {
   border-radius: 20px;
 }
 
+.detailsacc {
+  /* position: relative; */
+  width: 2200px;
+  /* height: 550px; */
+  /* color:var(--maroon); */
+ 
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 20px;
+}
+
+.detailsacc .recentOrdersacc {
+  position: relative;
+  display: grid;
+  height: fit-content;
+  background: var(--white);
+  padding: 10px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+}
+
+.detailsUpload {
+  /* position: relative; */
+  width: 2200px;
+  /* height: 550px; */
+  /* color:var(--maroon); */
+ 
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 20px;
+}
+
+.detailsUpload .recentOrdersUpload {
+  position: relative;
+  display: grid;
+  height: fit-content;
+  background: var(--white);
+  padding: 10px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+}
 
 
 .details .cardHeader {
@@ -299,7 +389,10 @@ body {
   justify-content: space-between;
   align-items: flex-start;
 }
+
 .cardHeader h2 {
+  margin-left: 40px;
+  margin-bottom: 10px;
   font-weight: 600;
   color: var(--maroon);
 }
@@ -437,13 +530,10 @@ body {
   color: white;
 }
 
-
-
-
 /* Add custom CSS for the editable table */
 .account-form {
-  width: 70%; /* Set the desired width for the form */
-  margin: 0 auto 0 70px; /* Center the form horizontally within the container */
+  width: 80%; /* Set the desired width for the form */
+  margin: 0 auto 0 80px; /* Center the form horizontally within the container */
   }
 
   .form-group {
@@ -451,7 +541,8 @@ body {
   }
 
   .form-label {
-      font-weight: bold;
+      font-weight: 500;
+      color: maroon;
       
   }
 
@@ -463,6 +554,16 @@ body {
   border-radius: 4px;
   text-align: left; /* Center-align the text inside the text fields */
   }
+
+  .form-inputadd {
+    width: 330%; /* You can adjust the percentage as needed */
+    padding: 8px; /* Increase the padding for a slightly larger appearance */
+    font-size: 18px; /* Increase the font size for a larger appearance */
+    border: 3px solid #ddd; /* Reduced border size for a cleaner look */
+    border-radius: 4px;
+    text-align: left; /* Center-align the text inside the text fields */
+    margin-bottom: 05px;
+    }
 
   .account-table .edit-button {
       background-color: #4CAF50;
@@ -476,54 +577,184 @@ body {
       background-color: #45a049;
   }
 
-  /* Add this CSS for the two-column layout */
-  .form-column {
-       /* Set the desired width for each column (50% for a two-column layout) */
-      float: left; /* Float the columns to the left */
-      box-sizing: border-box; /* Include padding and border in the width calculation */
-      padding: 0 10px; /* Add a bit of spacing between the columns */
-  }
 
-  /* Adjust the width of the labels and input fields for a consistent layout */
-  
+ /* Add this CSS for the two-column layout */
+
+  .form-column {
+      float: left; 
+      box-sizing: border-box; 
+      padding: 10px;
+  }
 
   .form-column .form-input {
-      width: 80%; /* You can adjust the width as needed */
-      margin-left: 50px; /* Add a bit of space between the label and input */
+      width: 100%; 
+      margin-left: 10px;
   }
 
-  /* Style for the Save button */
-  .edit-button {
-      background-color: #4CAF50; /* Green background color */
-      color: white;
-      border: none;
-      width: 20%;
-      border-radius: 4px;
-      padding: 10px 20px;
-      cursor: pointer;
-      float: right; /* Align the button to the right */
-     
-      
-      transition: background-color 0.3s, box-shadow 0.3s;
-  }
+  /* Style for the two-column layout */
 
-  /* Hover effect for the Save button */
-  .edit-button:hover {
-      background-color: #45a049; /* Darker green on hover */
-      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add a 3D-like shadow */
-  }
+/* Add this CSS for the two-column layout */
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px; /* Add some spacing between rows */
+}
+
+/* Style for the form-label */
+.form-label {
+  flex: 0 0 30%; /* Adjust the label width as needed */
+  text-align: right;
+  padding-right: 10px; /* Add some right padding to separate label and input */
+}
+
+.form-group {
+  margin-right: 20px;
+  margin-bottom: 10px; /* Add a margin to create space between form-groups */
+}
+
+/* Style for the Save button */
+.edit-button {
+  background-color: #4CAF50; /* Green background color */
+  color: white;
+  border: none;
+  width: 30%;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  float: right; /* Align the button to the right */
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 18px;
   
-.text-danger{
-color: red;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
 
+.edit-button i{
+  margin: 0 6px;
+}
+
+/* Hover effect for the Save button */
+.edit-button:hover {
+  background-color: #135016; /* Darker green on hover */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add a 3D-like shadow */
+}
+
+/*Update button*/
+
+.containerAcc form button, .updateBtn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  max-width: 200px;
+  width: 100%;
+  border: none;
+  outline: none;
+  color: #fff;
+  border-radius: 5px;
+  /* margin: 25px 0; */
+  background-color: maroon;
+  transition: all 0.3s linear;
+  cursor: pointer;
+}
+
+.container form button, .updateBtn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  max-width: 200px;
+  width: 100%;
+  border: none;
+  outline: none;
+  color: #fff;
+  border-radius: 5px;
+  /* margin: 25px 0; */
+  background-color: maroon;
+  transition: all 0.3s linear;
+  cursor: pointer;
+}
+.container form button,
+.container form button .updateBtn{
+  font-size: 14px;
+  font-weight: 400;
+}
+form button:hover{
+  background-color: #5c0000;
+}
+form button i,
+form .updateBtn i{
+  margin: 0 9px;
+}
+form .buttons{
+  display: flex;
+  align-items: center;
+}
+form .buttons button , .updateBtn{
+  margin-left: 20px;
+  margin-right: 10px;
+}
+
+.updateBtn{
+  margin-right: 30px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* Add New Professor btn */
+
+.AddProfBtn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  max-width: 300px;
+  width: 100%;
+  border: none;
+  outline: none;
+  color: #fff;
+  border-radius: 5px;
+  /* margin: 25px 0; */
+  background-color: maroon;
+  transition: all 0.3s linear;
+  cursor: pointer;
+}
+
+.AddProfBtn:hover{
+  background-color: #5c0000 ;
+}
+
+/* Modal btn */
+.modalCloseBtn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  max-width: 100%;
+  width: 50px;
+  border: none;
+  outline: none;
+  color: #fff;
+  border-radius: 5px;
+  margin: 25px 0;
+  background-color: maroon;
+  transition: all 0.3s linear;
+  cursor: pointer;
+}
+
+.modalCloseBtn:hover{
+  background-color: #5c0000 ;
 }
 
 
 
+/*button ends here*/
 
+.text-danger{
+color: red;
 
-
-
+}
 
 
 .hidden {
@@ -665,10 +896,26 @@ display: none !important;
 position: fixed;
 }
 
-
-
-
 h1{
   color:maroon;
   text-align: center;
 }
+
+/* Existing hover effect styles */
+.navigation ul li:hover,
+.navigation ul li.hovered {
+  background-color: var(--gray);
+}
+.navigation ul li:hover a,
+.navigation ul li.hovered a {
+  color: var(--maroon);
+}
+
+/* Add a new class for the "active" state */
+.navigation ul li.active {
+  background-color: var(--gray); /* Same as hover state */
+}
+.navigation ul li.active a {
+  color: var(--maroon); /* Same as hover state */
+}
+

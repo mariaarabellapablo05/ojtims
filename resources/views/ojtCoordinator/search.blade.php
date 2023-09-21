@@ -77,6 +77,15 @@
                     </a>
                 </li>
 
+                <li>
+                    <a href="{{ url('/MOA') }}">
+                        <span class="icon">
+                            <ion-icon name="folder-outline"></ion-icon>
+                        </span>
+                        <span class="title">MOA</span>
+                    </a>
+                </li>
+
 
                 
                 <li>

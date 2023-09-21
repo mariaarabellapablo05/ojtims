@@ -94,4 +94,36 @@ class AccountInfo extends Controller
 	    return view('professor.profAcc', compact('data'));
 
     }
+
+
+    public function editojt(Request $request,$email)
+    {
+        $user = User::where('email', $email)->first();
+
+        if (!$user) {
+            return back()->with('error', 'User not found.');
+        }
+    
+      
+    
+        // Update user data
+        $user->first_name = $request->first_name;
+        $user->middle_name = $request->middle_name;
+        $user->last_name = $request->last_name;
+        $user->full_name = $user->first_name . ' ' . $user->last_name;
+        $user->suffix = $request->suffix;
+        $user->address = $request->address;
+        $user->contact_number = $request->contact_number;
+        $user->date_of_birth = $request->date_of_birth;
+        $user->course = $request->course;
+        $user->year_and_section = $request->year_and_section;
+        $user->studentNum = $request->studentNum;
+        $user->email = $request->email;
+    
+        
+        $user->save();
+    
+        return back()->with('success', 'You have updated the information successfully!');
+
+    }
 }
